@@ -1,3 +1,13 @@
+/*
+Thank To:
+- Miftah
+- Caliph
+- Yanz
+
+Source code: https://github.com/miftahganzz/Bot-Telegram
+
+Forbidden to sell and delete the credit name
+*/
 const express = require('express');
 const chalk = require('chalk');
 const mongoose = require('mongoose');
