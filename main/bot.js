@@ -1,3 +1,14 @@
+/*
+Thank To:
+- Miftah
+- Caliph
+- Yanz
+
+Source code: https://github.com/miftahganzz/Bot-Telegram
+
+Forbidden to sell and delete the credit name
+*/
+
 const { Telegraf, Extra, session, Markup } = require('telegraf');
 const mongoose = require('mongoose');
 const axios = require('axios');
