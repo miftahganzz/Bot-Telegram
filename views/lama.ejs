@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Bot Telegram Dashboard</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <style>
+    body {
+      background-color: #0a1931; /* warna latar belakang tema langit malam */
+      color: #fff;
+    }
+    .container {
+      margin-top: 80px;
+    }
+    .section-title {
+      border-bottom: 2px solid #456990; /* warna garis bawah judul */
+      padding-bottom: 10px;
+      margin-bottom: 20px;
+    }
+    .about-section, .status-section, .statistics-section, .bot-section {
+      margin-bottom: 40px;
+      padding: 20px;
+      border-radius: 10px;
+      background-color: #112240; /* warna latar belakang sebelah dalam */
+      transition: background-color 0.3s;
+    }
+    .about-section:hover, .status-section:hover, .statistics-section:hover, .bot-section:hover {
+      background-color: #1e355b; /* warna latar belakang saat dihover */
+    }
+    .blinking {
+      animation: blinker 1.5s linear infinite;
+    }
+    @keyframes blinker {
+      50% { opacity: 0; }
+    }
+    .badge-status {
+      width: 15px;
+      height: 15px;
+      border-radius: 50%;
+    }
+    .badge-online {
+      background-color: #1abc9c; /* hijau untuk status online */
+    }
+    .badge-offline {
+      background-color: #e74c3c; /* merah untuk status offline */
+    }
+    .footer {
+      background-color: #0e1a33; /* warna latar belakang footer */
+      color: #bbb;
+      text-align: center;
+      padding: 10px 0;
+      position: relative;
+      bottom: 0;
+      width: 100%;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Main content -->
+  <div class="container mt-5">
+    <!-- About Section -->
+    <div class="about-section bg-secondary text-white p-3 rounded mb-4">
+      <h2 class="section-title">About the Telegram Bot</h2>
+      <p>This bot was created to demonstrate how to integrate Telegram bot functionalities with an Express server.</p>
+    </div>
+
+    <!-- Status Section -->
+    <div class="status-section bg-secondary text-white p-3 rounded mb-4">
+      <h2 class="section-title">Status Bot</h2>
+      <div class="d-flex justify-content-between align-items-center">
+        <div>
+          <h5 id="botStatus" class="btn btn-dark position-relative">
+            
+            <span class="position-absolute top-0 start-100 translate-middle p-2 border border-light rounded-circle <%= botStatus === 'online' ? 'blinking bg-success' : 'bg-danger' %>">
+              <span class="visually-hidden"><%= botStatus %></span>
+            </span>
+          </h5>
+        </div>
+      </div>
+    </div>
+
+    <!-- Statistics Section -->
+    <div class="row">
+      <div class="col-md-4">
+        <div class="card bg-secondary text-white mb-3">
+          <div class="card-body">
+            <h5 class="card-title">Total Users</h5>
+            <p class="card-text"><%= totalUsers %></p>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="card bg-secondary text-white mb-3">
+          <div class="card-body">
+            <h5 class="card-title">Total Premium Users</h5>
+            <p class="card-text"><%= premiumUsers %></p>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="card bg-secondary text-white mb-3">
+          <div class="card-body">
+            <h5 class="card-title">Total Features</h5>
+            <p class="card-text"><%= totalFeatures %></p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Bot Section -->
+    <div class="bot-section text-center bg-secondary text-white p-3 rounded">
+      <h2 class="section-title">Bot</h2>
+      <a href="https://t.me/<%= botUsername %>" target="_blank" class="btn btn-primary">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/8/82/Telegram_logo.svg" alt="Telegram Bot" style="width: 30px; margin-right: 10px;">
+        Go to Bot
+      </a>
+    </div>
+  </div>
+
+
+  <!-- Bootstrap JS Bundle with Popper -->
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

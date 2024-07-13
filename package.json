@@ -1,0 +1,28 @@
+{
+  "name": "Bot-Tele",
+  "version": "1.0.0",
+  "description": "Simple Telegram Bot Using Lib Telegraf",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "pm2": "pm2 start index.js && pm2 save && pm2 log"
+  },
+  "keywords": ["bot-tele", "Bot Tele", "Bot Telegram", "Telegraf"],
+  "author": "Miftah GanzZ",
+  "license": "ISC",
+  "dependencies": {
+    "@types/node": "^18.0.6",
+    "axios": "^1.6.2",
+    "cfonts": "^3.2.0",
+    "chalk": "^4.1.2",
+    "chokidar": "^3.6.0",
+    "express": "^4.19.2",
+    "ejs": "3.1.10",
+    "moment-timezone": "^0.5.45",
+    "mongodb": "^6.3.0",
+    "mongoose": "^8.0.2",
+    "morgan": "^1.10.0",
+    "node-fetch": "^2.6.4",
+    "telegraf": "^4.15.3"
+  }
+}
