@@ -177,15 +177,15 @@ Contributions are always welcome! Feel free to fork the repository and submit a 
 ---
 
 ## 💖 Donate
-- [Saweria](https://saweria.co/miftahganz)
-- [SociaBuzz](https://sociabuzz.com/miftahganz/tribe)
+- [Saweria](https://saweria.co/itzpire)
+- [Trakteer](https://trakteer.id/itzpire_business)
 
 ---
 
 ## 🙏 Thanks to
-<a href="https://github.com/miftahganzz"><img src="https://github.com/miftahganzz.png?size=100" width="100" height="100"></a> | 
----|
-[Miftah GanzZ](https://github.com/miftahganzz)  |
-Developer |
+<a href="https://github.com/miftahganzz"><img src="https://github.com/miftahganzz.png?size=100" width="100" height="100"></a> | <a href="https://github.com/YanzBotz"><img src="https://github.com/YanzBotz.png?size=100" width="100" height="100"></a> | <a href="https://github.com/caliph91"><img src="https://github.com/caliph91.png?size=100" width="100" height="100"></a> 
+---|---|---
+[Miftah GanzZ](https://github.com/miftahganzz)  | [Yanz](https://github.com/YanzBotz) | [Caliph Dev](https://github.com/caliph91) 
+Developer | Constributor | Constributor | 
 
 ---
