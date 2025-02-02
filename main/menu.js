@@ -16,8 +16,16 @@ const menu = `
 ┃⤷ gptweb
 ┃⤷ gemini
 ┃⤷ emi
+<<<<<<< HEAD
 ┃⤷ 3dmodel
 ┃⤷ animediff
+=======
+┃⤷ anipix
+┃⤷ iask
+┃⤷ morphic 
+┃⤷ claude
+┃⤷ stablediff
+>>>>>>> aaf8e13 (Update 02, 02)
 ┗━━━━━━━━━
 
 ┎━「 GROUP MENU ｣

@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 /*
 Thank To:
 - Miftah
@@ -9,6 +10,8 @@ Source code: https://github.com/miftahganzz/Bot-Telegram
 Forbidden to sell and delete the credit name
 */
 
+=======
+>>>>>>> aaf8e13 (Update 02, 02)
 const { Telegraf, Extra, session, Markup } = require('telegraf');
 const mongoose = require('mongoose');
 const axios = require('axios');
@@ -21,17 +24,30 @@ const menu = require("./menu");
 const os = require('os');
 const exec = require('child_process').exec;
 const util = require('util');
+<<<<<<< HEAD
+=======
+const https = require('https');
+>>>>>>> aaf8e13 (Update 02, 02)
 require("../config");
 
 // Lib
 const func = require("../lib/func");
 
 mongoose.connect(mongoURL, { useNewUrlParser: true, useUnifiedTopology: true });
+<<<<<<< HEAD
 const User = mongoose.model('bot-tele', {
   id: Number,
   username: String,
   isPremium: Boolean,
   status: String,
+=======
+
+const User = mongoose.models['bot-tele'] || mongoose.model('bot-tele', new mongoose.Schema({
+  id: { type: Number, required: true },
+  username: { type: String, required: true },
+  isPremium: { type: Boolean, default: false },
+  status: { type: String, default: 'User' },
+>>>>>>> aaf8e13 (Update 02, 02)
   lastClaim: Date,
   limit: { type: Number, default: 25 },
   balance: { type: Number, default: 50 },
@@ -39,7 +55,11 @@ const User = mongoose.model('bot-tele', {
   referralCode: String,
   referredBy: String,
   referrals: { type: Number, default: 0 }
+<<<<<<< HEAD
 });
+=======
+}));
+>>>>>>> aaf8e13 (Update 02, 02)
 
 const db = mongoose.connection;
 
@@ -276,6 +296,159 @@ bot.command(['ai', 'gptweb'], async (ctx) => {
   }
 });
 
+<<<<<<< HEAD
+=======
+bot.command('claude', async (ctx) => {
+    const user = await User.findOne({ id: ctx.from.id });
+  if (!user) {
+     return ctx.reply(mess.start);
+  }
+
+  if (user.limit > 0) {
+    const question = ctx.message.text.split(' ').slice(1).join(' ');
+
+    if (!question) {
+      await ctx.reply(mess.question);
+      return;
+    }
+
+    const encodedQuestion = encodeURIComponent(question);
+    const apiUrl = `${api.itzpire}/ai/claude?q=${encodedQuestion}`;
+
+    try {
+      await ctx.replyWithChatAction('typing');
+
+      const response = await axios.get(apiUrl);
+      const answer = response.data.result;
+
+      user.limit -= 1;
+      await user.save();
+
+      await ctx.reply(`${answer}`);
+    } catch (error) {
+      console.error(error);
+      await ctx.reply(mess.error);
+    }
+  } else {
+    await ctx.reply(mess.limit);
+  }
+});
+
+bot.command('morphic', async (ctx) => {
+    const user = await User.findOne({ id: ctx.from.id });
+    if (!user) {
+        return ctx.reply(mess.start);
+    }
+
+    if (user.limit > 0) {
+        const query = ctx.message.text.split(' ').slice(1).join(' ');
+
+        if (!query) {
+            await ctx.reply('Please provide a query. Example: /morphic ITzpire API');
+            return;
+        }
+
+        const encodedQuery = encodeURIComponent(query);
+        const apiUrl = `${api.itzpire}/ai/morphic?q=${encodedQuery}`;
+
+        try {
+            await ctx.replyWithChatAction('typing');
+
+            const response = await axios.get(apiUrl);
+            const { result, images, tools, source, related } = response.data.data;
+
+            user.limit -= 1;
+            await user.save();
+
+            let relatedText = '';
+            related.forEach((item) => {
+                relatedText += `- ${item}\n`;
+            });
+
+            const resultMessage = `
+**Overview:**
+${result}
+
+**Related Topics:**
+${relatedText || 'No related topics available.'}
+            `;
+
+            await ctx.reply(resultMessage, { parse_mode: 'Markdown' });
+
+            if (images.length > 0) {
+                for (const img of images) {
+                    await ctx.replyWithPhoto({ url: img });
+                }
+            }
+        } catch (error) {
+            console.error(error);
+            await ctx.reply(mess.error);
+        }
+    } else {
+        await ctx.reply(mess.limit);
+    }
+});
+
+bot.command('iask', async (ctx) => {
+    const user = await User.findOne({ id: ctx.from.id });
+    if (!user) {
+        return ctx.reply(mess.start);
+    }
+
+    if (user.limit > 0) {
+        const question = ctx.message.text.split(' ').slice(1).join(' ');
+
+        if (!question) {
+            await ctx.reply(mess.question);
+            return;
+        }
+
+        const encodedQuestion = encodeURIComponent(question);
+        const apiUrl = `${api.itzpire}/ai/iask?q=${encodedQuestion}`;
+
+        try {
+            await ctx.replyWithChatAction('typing');
+
+            const response = await axios.get(apiUrl);
+            const { answer, relatedVideos, source } = response.data.data;
+
+            user.limit -= 1;
+            await user.save();
+
+            let sourcesText = '';
+            source.forEach((src) => {
+                sourcesText += `[${src.title}](${src.url})\n`;
+            });
+
+            let videosText = '';
+            relatedVideos.forEach((video) => {
+                if (video.title && video.url) {
+                    videosText += `[${video.title}](${video.url})\n`;
+                }
+            });
+
+            const resultMessage = `
+**Answer:**
+${answer}
+
+**[Source]**
+${sourcesText}
+
+**[Related Videos]**
+${videosText || 'No related videos available.'}
+            `;
+
+            await ctx.reply(resultMessage, { parse_mode: 'Markdown' });
+        } catch (error) {
+            console.error(error);
+            await ctx.reply(mess.error);
+        }
+    } else {
+        await ctx.reply(mess.limit);
+    }
+});
+
+>>>>>>> aaf8e13 (Update 02, 02)
 bot.command('gemini', async (ctx) => {
   const user = await User.findOne({ id: ctx.from.id });
 
@@ -395,6 +568,7 @@ bot.command('emi', async (ctx) => {
   }
 });
 
+<<<<<<< HEAD
 bot.command('3dmodel', async (ctx) => {
     const user = await User.findOne({ id: ctx.from.id });
   if (!user) {
@@ -459,6 +633,83 @@ bot.command('animediff', async (ctx) => {
   } else {
     await ctx.reply(mess.limit);
   }
+=======
+bot.command('anipix', async (ctx) => {
+    const user = await User.findOne({ id: ctx.from.id });
+    if (!user) {
+        return ctx.reply(mess.start);
+    }
+
+    if (!user.isPremium && user.status !== 'Owner') {
+        return ctx.reply(mess.onlyPremium);
+    }
+
+    if (user.limit > 0) {
+        const prompt = ctx.message.text.split(' ').slice(1).join(' ');
+
+        if (!prompt) {
+            await ctx.reply(`Incorrect use. Example: /anipix cat`);
+            return;
+        }
+
+        try {
+            await ctx.replyWithChatAction('upload_photo');
+
+            const response = await axios.get(`${api.itzpire}/ai/anipix?prompt=${prompt}`);
+            const result = response.data.result;
+
+            user.limit -= 1;
+            await user.save();
+
+            await ctx.replyWithPhoto({ url: result }, { caption: `Prompt: ${prompt}` });
+        } catch (error) {
+            console.error(error);
+            await ctx.reply(mess.error);
+        }
+    } else {
+        await ctx.reply(mess.limit);
+    }
+});
+
+bot.command('stablediff', async (ctx) => {
+    const user = await User.findOne({ id: ctx.from.id });
+    if (!user) {
+        return ctx.reply(mess.start);
+    }
+
+    if (user.limit > 0) {
+        const args = ctx.message.text.split(' ').slice(1);
+        const prompt = args.slice(0, -1).join(' ');
+        const model = args[args.length - 1];
+
+        const validModels = ['anime', '3d', 'manga', 'realistic'];
+
+        if (!prompt || !validModels.includes(model)) {
+            await ctx.reply(`Incorrect use. Example: /stablediff cat anime\nAvailable models: ${validModels.join(', ')}`);
+            return;
+        }
+
+        try {
+            await ctx.replyWithChatAction('upload_photo');
+
+            const response = await axios.get(`${api.itzpire}/ai/stable-diffusion?prompt=${prompt}&model=${model}`, {
+                responseType: 'arraybuffer'
+            });
+
+            const buffer = Buffer.from(response.data, 'base64');
+
+            user.limit -= 1;
+            await user.save();
+
+            await ctx.replyWithPhoto({ source: buffer }, { caption: `Prompt: ${prompt}\nModel: ${model}` });
+        } catch (error) {
+            console.error(error);
+            await ctx.reply(mess.error);
+        }
+    } else {
+        await ctx.reply(mess.limit);
+    }
+>>>>>>> aaf8e13 (Update 02, 02)
 });
 
 // Search Feature 
@@ -466,7 +717,11 @@ bot.command('pinterest', async (ctx) => {
     const commandParams = ctx.message.text.split('|');
     const query = commandParams[0].split(' ')[1];
     let count = parseInt(commandParams[1]) || 1;
+<<<<<<< HEAD
     if (count > 5) count = 5; 
+=======
+    if (count > 5) count = 5;
+>>>>>>> aaf8e13 (Update 02, 02)
 
     if (!query) {
         return ctx.reply('Incorrect command format. Use /pinterest query|amount. Max quantity 5');
@@ -490,8 +745,14 @@ bot.command('pinterest', async (ctx) => {
         if (status === 'success') {
             const images = data.slice(0, count);
             for (const image of images) {
+<<<<<<< HEAD
             	await ctx.replyWithChatAction('upload_photo');
                 await ctx.replyWithPhoto({ url: image });
+=======
+                await ctx.replyWithChatAction('upload_photo');
+                const caption = image.caption ? image.caption : "No caption available";
+                await ctx.replyWithPhoto({ url: image.image }, { caption: `${image.fullname} - ${image.upload_by}\nCaption: ${caption}\nFollowers: ${image.followers}\nSource: ${image.source}` });
+>>>>>>> aaf8e13 (Update 02, 02)
             }
         } else {
             await ctx.reply('Cannot find image for the given query.');
@@ -559,7 +820,11 @@ bot.command('makezombie', async (ctx) => {
       const photo = repliedMessage.photo;
       const fileId = photo[photo.length - 1].file_id;
       const fileLink = await ctx.telegram.getFileLink(fileId);
+<<<<<<< HEAD
       const response = await axios.get(api.itzpire + `/tools/jadizombie?url=${encodeURIComponent(fileLink)}`);
+=======
+      const response = await axios.get(api.itzpire + `/tools/img2zombie?url=${encodeURIComponent(fileLink)}`);
+>>>>>>> aaf8e13 (Update 02, 02)
       const result = response.data.result;
 
       user.limit -= 2;
@@ -657,7 +922,11 @@ const user = await User.findOne({ id: ctx.from.id });
       return ctx.reply('Invalid Spotify URL. Please provide a valid Spotify track URL.');
     }
 
+<<<<<<< HEAD
     const response = await axios.get(api.itzpire + `/download/aio?url=${encodeURIComponent(url)}`);
+=======
+    const response = await axios.get(api.itzpire + `/download/spotify?url=${encodeURIComponent(url)}`);
+>>>>>>> aaf8e13 (Update 02, 02)
     const data = response.data;
 
     if (data.status === 'success') {
@@ -687,6 +956,62 @@ const user = await User.findOne({ id: ctx.from.id });
   }
 });
 
+<<<<<<< HEAD
+=======
+bot.command('play', async (ctx) => {
+  const title = ctx.message.text.split(' ').slice(1).join(' ');
+  if (!title) {
+    return ctx.reply('Please provide a title to search.');
+  }
+
+  try {
+    const response = await axios.get(api.itzpire + `/download/play-youtube?title=${encodeURIComponent(title)}`);
+    const result = response.data;
+
+    if (result.status === 'success') {
+      const audio = result.data.audio;
+      const audioUrl = audio.url;
+
+      const audioPath = path.resolve(__dirname, `${Date.now()}.mp3`);
+      const audioFile = fs.createWriteStream(audioPath);
+
+      https.get(audioUrl, (res) => {
+        res.pipe(audioFile);
+        audioFile.on('finish', async () => {
+          audioFile.close();
+          try {
+            await ctx.replyWithAudio({ source: audioPath }, {
+              caption: `
+<b>Title:</b> ${audio.title}
+<b>Channel:</b> ${audio.channel}
+<b>Published:</b> ${audio.published}
+<b>Views:</b> ${audio.views}
+              `,
+              parse_mode: 'HTML',
+              thumb: { url: audio.thumb }
+            });
+            fs.unlink(audioPath, (err) => {
+              if (err) console.error(err);
+            });
+          } catch (err) {
+            console.error(err);
+            ctx.reply('Failed to send the audio file.');
+          }
+        });
+      }).on('error', (err) => {
+        console.error(err);
+        ctx.reply('Failed to download the audio file.');
+      });
+    } else {
+      ctx.reply('Failed to fetch the audio data. Please try again later.');
+    }
+  } catch (error) {
+    console.error(error);
+    ctx.reply('An error occurred while fetching the audio data.');
+  }
+});
+
+>>>>>>> aaf8e13 (Update 02, 02)
 // Main Feature 
 bot.command('ping', async (ctx) => {
       try {
@@ -2504,4 +2829,8 @@ setInterval(async () => {
   });
 }, time_interval); 
 
+<<<<<<< HEAD
 module.exports = { bot, User };
+=======
+module.exports = { bot, User };
+>>>>>>> aaf8e13 (Update 02, 02)
