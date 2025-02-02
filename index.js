@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 /*
 Thank To:
 - Miftah
@@ -8,6 +9,8 @@ Source code: https://github.com/miftahganzz/Bot-Telegram
 
 Forbidden to sell and delete the credit name
 */
+=======
+>>>>>>> aaf8e13 (Update 02, 02)
 const express = require('express');
 const chalk = require('chalk');
 const mongoose = require('mongoose');
@@ -32,6 +35,7 @@ if (web_view) {
   app.use(express.json());
   app.use(express.static(path.join(__dirname, 'views')));
 
+<<<<<<< HEAD
 app.get('/', async (req, res) => {
   try {
     const users = await User.find();
@@ -53,6 +57,29 @@ app.get('/', async (req, res) => {
     res.status(500).send('Failed to fetch users.');
   }
 });
+=======
+  app.get('/', async (req, res) => {
+    try {
+      const users = await User.find();
+      const totalUsers = users.length;
+      const premiumUsers = users.filter(user => user.isPremium).length;
+
+      let botStatus = 'offline';
+
+      const response = await fetch(`https://api.telegram.org/bot${botToken}/getMe`);
+      const data = await response.json();
+
+      if (data.ok) {
+        botStatus = 'online';
+      }
+
+      res.render('index', { totalUsers, premiumUsers, botStatus, botName: data.result.first_name, botUsername: data.result.username, totalFeatures, ownerName, github, telegram });
+    } catch (error) {
+      console.error('Error fetching users:', error);
+      res.status(500).send('Failed to fetch users.');
+    }
+  });
+>>>>>>> aaf8e13 (Update 02, 02)
 
   app.post('/webhook', (req, res) => {
     bot.handleUpdate(req.body);
@@ -92,7 +119,15 @@ cfonts.say('ITzpire simple bot telegram created by Miftah', {
 });
 
 const clearRequireCache = (module) => {
+<<<<<<< HEAD
     delete require.cache[require.resolve(module)];
+=======
+    const resolvedModule = require.resolve(module);
+    if (require.cache[resolvedModule]) {
+        console.log(chalk.whiteBright('├'), chalk.yellowBright(`Clearing cache for: ${module}`));
+    }
+    delete require.cache[resolvedModule];
+>>>>>>> aaf8e13 (Update 02, 02)
 };
 
 const reloadModules = () => {
@@ -119,8 +154,23 @@ watcher.on('change', (filePath) => {
     reloadModules();
 });
 
+<<<<<<< HEAD
+=======
+watcher.on('ready', () => {
+    console.log(chalk.whiteBright('├'), chalk.greenBright('Watcher is ready.'));
+});
+
+watcher.on('error', (err) => {
+    console.error(chalk.whiteBright('├'), chalk.redBright('Error with watcher:'), err);
+});
+
+>>>>>>> aaf8e13 (Update 02, 02)
 bot.launch().then(() => {
   console.log(chalk.whiteBright('├'), chalk.cyanBright('[✓] Bot is now running!'));
 }).catch((err) => {
   console.error(chalk.whiteBright('├'), chalk.redBright('[✗] Error starting the bot:'), err);
+<<<<<<< HEAD
 });
+=======
+});
+>>>>>>> aaf8e13 (Update 02, 02)
