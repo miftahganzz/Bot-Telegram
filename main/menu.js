@@ -16,16 +16,13 @@ const menu = `
 ┃⤷ gptweb
 ┃⤷ gemini
 ┃⤷ emi
-<<<<<<< HEAD
-┃⤷ 3dmodel
-┃⤷ animediff
-=======
+┃⤷ aitrip
 ┃⤷ anipix
 ┃⤷ iask
 ┃⤷ morphic 
 ┃⤷ claude
 ┃⤷ stablediff
->>>>>>> aaf8e13 (Update 02, 02)
+┃⤷ gening
 ┗━━━━━━━━━
 
 ┎━「 GROUP MENU ｣
@@ -53,6 +50,7 @@ const menu = `
 ┃⤷ bookspotter
 ┃⤷ charpotter
 ┃⤷ spellpotter
+┃⤷ quotesanime
 ┗━━━━━━━━━
 
 ┎━「 SEARCH MENU ｣
